@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OCR Invoice and Receipt using Gemini</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: #0056b3;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        p {
+            margin-bottom: 10px;
+        }
+        ul, ol {
+            margin: 10px 0 20px 20px;
+        }
+        pre {
+            background-color: #eee;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            background-color: #f9f2f4;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: Consolas, "courier new", monospace;
+        }
+        a {
+            color: #0056b3;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>OCR Invoice and Receipt using Gemini</h1>
+        <p>This project demonstrates how to process receipts and invoices using FastAPI and YOLO model for receipt detection. It also includes functionalities to process PDF files and convert them into images for further processing.</p>
+        
+        <h2>Features</h2>
+        <ul>
+            <li><strong>Receipt Detection:</strong>
+                <ul>
+                    <li>Uses YOLO model to detect receipts in images.</li>
+                    <li>Processes PDF files and converts them to images for receipt detection.</li>
+                </ul>
+            </li>
+            <li><strong>Invoice and Receipt Processing:</strong>
+                <ul>
+                    <li>Analyzes images of invoices and receipts.</li>
+                    <li>Uses Google's Vertex AI for document analysis and OCR.</li>
+                    <li>Provides detailed results including document type and content analysis.</li>
+                </ul>
+            </li>
+        </ul>
+        
+        <h2>Endpoints</h2>
+        <h3>POST /process</h3>
+        <h4>Request</h4>
+        <p>Form data parameters:</p>
+        <ul>
+            <li><code>file</code>: The file to be processed (PDF or image).</li>
+            <li><code>custome_field_headers</code>: Custom field headers, separated by commas.</li>
+            <li><code>custome_field_items</code>: Custom field items, separated by commas.</li>
+        </ul>
+        
+        <h4>Response</h4>
+        <p>The response is a JSON object containing the results of the receipt or invoice processing.</p>
+        <pre><code>{
+  "document_type": "receipt",
+  "total_amount": "<total amount>",
+  "line_items": [
+    {
+      "description": "<item description>",
+      "amount": "<item amount>"
+    }
+  ],
+  "usage": {
+    "prompt_token_count": 100,
+    "candidates_token_count": 200,
+    "total_token_count": 300
+  }
+}
+</code></pre>
+        
+        <h2>Installation</h2>
+        <ol>
+            <li>Clone the repository:
+                <pre><code>git clone https://github.com/yourusername/yourproject.git
+cd yourproject</code></pre>
+            </li>
+            <li>Create and activate a virtual environment:
+                <pre><code>python -m venv venv
+source venv/bin/activate  # On Windows use `venv\Scripts\activate`</code></pre>
+            </li>
+            <li>Install dependencies:
+                <pre><code>pip install -r requirements.txt</code></pre>
+            </li>
+            <li>Create a <code>.env</code> file in the root directory with the following variables:
+                <pre><code>PROJECT_ID=your_project_id
+CREDENTIALS_FILE_PATH=/path/to/your/credentials.json
+GEMINI_MODEL=gemni-model-name
+YOLO_MODEL_PATH=models/receipt_detector.pt
+</code></pre>
+            </li>
+            <li>Run the FastAPI application:
+                <pre><code>uvicorn main:app --reload</code></pre>
+            </li>
+        </ol>
+        
+        <h2>Project Structure</h2>
+        <ul>
+            <li><code>main.py</code>: Main FastAPI application.</li>
+            <li><code>config.py</code>: Configuration settings loaded from the <code>.env</code> file.</li>
+            <li><code>models.py</code>: Initialization and setup for AI models.</li>
+            <li><code>utils.py</code>: Utility functions for PDF and image processing.</li>
+            <li><code>receipt_detector.py</code>: YOLO model for receipt detection.</li>
+        </ul>
+        
+        <h2>Usage</h2>
+        <ol>
+            <li>Start the FastAPI server.</li>
+            <li>Send a POST request to <code>/process</code> with the necessary form data.</li>
+            <li>Receive the receipt or invoice processing results in the response.</li>
+        </ol>
+        
+        <h2>License</h2>
+        <p>This project is licensed under the MIT License. See the <a href="LICENSE">LICENSE</a> file for details.</p>
+    </div>
+</body>
+</html>
